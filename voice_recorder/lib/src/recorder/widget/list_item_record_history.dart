@@ -1,9 +1,9 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:voice_recorder/recorder/dataModel/record_item.dart';
-import 'package:voice_recorder/recorder/record_use_case.dart';
-import 'package:voice_recorder/utils/my_audio_player.dart';
+import 'package:voice_recorder/src/recorder/dataModel/record_item.dart';
+import 'package:voice_recorder/src/recorder/record_use_case.dart';
+import 'package:voice_recorder/src/utils/my_audio_player.dart';
 
 // ignore: must_be_immutable
 class ListItemRecordHistory extends StatefulWidget {
@@ -45,29 +45,31 @@ class _ListItemRecordHistoryState extends State<ListItemRecordHistory> {
     return Card(child: Obx(() {
       var isPlaying =
           _usecase.currentFile.value?.path == widget.recordItem.path;
-      return ExpansionTile(
-        key: Key(keyString),
-        initiallyExpanded: widget.isExpanded,
-        title: Text(widget.recordItem.title),
-        leading: widget.isExpanded
-            ? null
-            : IconButton(
-                icon: Icon(
-                  isPlaying ? Icons.stop : Icons.play_arrow,
-                ),
-                onPressed: () => {_onPlayButtonClick(isPlaying)},
-                iconSize: 40,
-              ),
-        onExpansionChanged: (expanded) {
-          setState(() {
-            widget.onExpanded(widget.recordItem.path, expanded);
-          });
-        },
-        children: [
-          _audioProgressBar(),
-          _controllerButtons(),
-        ],
-      );
+      return Theme(
+          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+          child: ExpansionTile(
+            key: Key(keyString),
+            initiallyExpanded: widget.isExpanded,
+            title: Text(widget.recordItem.title),
+            leading: widget.isExpanded
+                ? null
+                : IconButton(
+                    icon: Icon(
+                      isPlaying ? Icons.stop : Icons.play_arrow,
+                    ),
+                    onPressed: () => {_onPlayButtonClick(isPlaying)},
+                    iconSize: 40,
+                  ),
+            onExpansionChanged: (expanded) {
+              setState(() {
+                widget.onExpanded(widget.recordItem.path, expanded);
+              });
+            },
+            children: [
+              _audioProgressBar(),
+              _controllerButtons(),
+            ],
+          ));
     }));
   }
 

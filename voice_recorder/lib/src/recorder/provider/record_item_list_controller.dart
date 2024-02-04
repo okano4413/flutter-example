@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'package:voice_recorder/database/db.dart';
-import 'package:voice_recorder/recorder/dataModel/record_item.dart';
+import 'package:voice_recorder/src/database/db.dart';
+import 'package:voice_recorder/src/recorder/dataModel/record_item.dart';
+
 class RecordItemListController extends GetxController {
   final _recordItemList = <RecordItem>[].obs;
   List<RecordItem> get recordItemList => _recordItemList.toList();
@@ -13,7 +14,7 @@ class RecordItemListController extends GetxController {
   }
 
   void _loadRecordItemList() async {
-    _database ??=  await MyDatabase.getInstance();
+    _database ??= await MyDatabase.getInstance();
     final recordItemList = await _database!.getRecords();
     _recordItemList.value = recordItemList;
   }

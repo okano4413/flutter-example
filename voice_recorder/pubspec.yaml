@@ -44,6 +44,7 @@ dependencies:
   file_saver: ^0.2.6
   get: ^4.6.5
   slang: ^3.29.0
+  slang_flutter: ^3.29.0
 
 dev_dependencies:
   flutter_test:

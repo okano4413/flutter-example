@@ -1,12 +1,13 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:voice_recorder/recorder/dataModel/record_item.dart';
-import 'package:voice_recorder/recorder/record_use_case.dart';
-import 'package:voice_recorder/recorder/widget/record_controller.dart';
+import 'package:voice_recorder/assets/i18n/strings.g.dart';
+import 'package:voice_recorder/src/recorder/dataModel/record_item.dart';
+import 'package:voice_recorder/src/recorder/record_use_case.dart';
+import 'package:voice_recorder/src/recorder/widget/record_controller.dart';
 import 'list_item_record_history.dart';
 import 'package:get/get.dart';
-import 'package:voice_recorder/recorder/provider/record_item_list_controller.dart';
+import 'package:voice_recorder/src/recorder/provider/record_item_list_controller.dart';
 
 class RecorderHome extends StatefulWidget {
   @override
@@ -71,9 +72,7 @@ class _RecorderHomeState extends State<RecorderHome> {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Recorder Home',
-          ),
+          title: Text(_getTitle()),
         ),
         body: Column(
           children: [
@@ -88,15 +87,15 @@ class _RecorderHomeState extends State<RecorderHome> {
               _selectedIndex = value;
             });
           },
-          items: const [
+          items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.record_voice_over),
-              label: '録音',
+              label: t.record,
               backgroundColor: Colors.blue,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.notes),
-              label: '文字起こし',
+              label: t.transcribe,
               backgroundColor: Colors.blue,
             ),
           ],
@@ -105,18 +104,20 @@ class _RecorderHomeState extends State<RecorderHome> {
 
   Widget _recordWidget() {
     return Expanded(
-        child: ListView.builder(
-      shrinkWrap: true,
-      // key: Key('builder {$expandedItemPath}'),
-      itemCount: _controller.recordItemList.length,
-      itemBuilder: (context, index) {
-        RecordItem item = _controller.recordItemList[index];
-        return ListItemRecordHistory(
-            isExpanded: _expandedItemPath == item.path,
-            recordItem: item,
-            onExpanded: _onExpandedItem);
-      },
-    ));
+        child: Container(
+            color: Colors.grey[200],
+            child: ListView.builder(
+              shrinkWrap: true,
+              // key: Key('builder {$expandedItemPath}'),
+              itemCount: _controller.recordItemList.length,
+              itemBuilder: (context, index) {
+                RecordItem item = _controller.recordItemList[index];
+                return ListItemRecordHistory(
+                    isExpanded: _expandedItemPath == item.path,
+                    recordItem: item,
+                    onExpanded: _onExpandedItem);
+              },
+            )));
   }
 
   Widget _transcribeWidget() {
@@ -125,5 +126,13 @@ class _RecorderHomeState extends State<RecorderHome> {
         child: Text('transcribe'),
       ),
     );
+  }
+
+  String _getTitle() {
+    if (_selectedIndex == 0) {
+      return t.record;
+    } else {
+      return t.transcribe;
+    }
   }
 }

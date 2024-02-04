@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
-import 'package:voice_recorder/recorder/dataModel/record_item.dart';
-import 'package:voice_recorder/recorder/provider/record_item_list_controller.dart';
-import 'package:voice_recorder/utils/my_audio_player.dart';
+import 'package:voice_recorder/src/recorder/dataModel/record_item.dart';
+import 'package:voice_recorder/src/recorder/provider/record_item_list_controller.dart';
+import 'package:voice_recorder/src/utils/my_audio_player.dart';
 
 class RecordUseCase extends GetxController {
   final _record = Record();

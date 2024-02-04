@@ -1,4 +1,4 @@
-import 'package:voice_recorder/recorder/dataModel/record_item.dart';
+import 'package:voice_recorder/src/recorder/dataModel/record_item.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MyDatabase {
@@ -35,12 +35,12 @@ class MyDatabase {
   }
 
   Future<List<RecordItem>> getRecords() async {
-    List<Map<String, dynamic>> data =  await database!.query(TABLE_NAME);
+    List<Map<String, dynamic>> data = await database!.query(TABLE_NAME);
     return data.map((e) => RecordItem.fromMap(e)).toList();
   }
 
   Future<RecordItem> getRecord(int id) async {
-    List<Map<String, dynamic>> data =  await database!.query(
+    List<Map<String, dynamic>> data = await database!.query(
       TABLE_NAME,
       where: "$COLUMN_ID = ?",
       whereArgs: [id],
@@ -63,7 +63,7 @@ class MyDatabase {
   Future<bool> updateRecordTitle(int id, String title) async {
     int affected = await database!.update(
       TABLE_NAME,
-      {COLUMN_TITLE:title},
+      {COLUMN_TITLE: title},
       where: "$COLUMN_ID = ?",
       whereArgs: [id],
     );

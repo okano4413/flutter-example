@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:voice_recorder/recorder/widget/recorder_home.dart';
+import 'package:voice_recorder/src/recorder/widget/recorder_home.dart';
+
+import 'assets/i18n/strings.g.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized(); // add this
+  LocaleSettings.useDeviceLocale();
   runApp(const MyApp());
 }
 
@@ -30,7 +34,8 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        primarySwatch: Colors.blue,
+        // primarySwatch: Colors.blue,
+        colorSchemeSeed: Colors.blue,
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
@@ -42,4 +47,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
