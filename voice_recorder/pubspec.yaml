@@ -43,6 +43,7 @@ dependencies:
   audio_video_progress_bar: ^1.0.1
   file_saver: ^0.2.6
   get: ^4.6.5
+  slang: ^3.29.0
 
 dev_dependencies:
   flutter_test:

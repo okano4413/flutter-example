@@ -22,7 +22,6 @@ class RecordItemListController extends GetxController {
     int id = await _database!.insertRecord(path, title);
     _loadRecordItemList();
     return id;
-    // _recordItemList.add(recordItem);
   }
 
   void removeRecordItem(RecordItem recordItem) async {
