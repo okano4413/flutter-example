@@ -2,7 +2,7 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voice_recorder/src/recorder/dataModel/record_item.dart';
-import 'package:voice_recorder/src/recorder/record_use_case.dart';
+import 'package:voice_recorder/src/recorder/use_case/record_use_case.dart';
 import 'package:voice_recorder/src/utils/my_audio_player.dart';
 
 // ignore: must_be_immutable

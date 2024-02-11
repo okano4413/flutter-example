@@ -35,7 +35,8 @@ class MyDatabase {
   }
 
   Future<List<RecordItem>> getRecords() async {
-    List<Map<String, dynamic>> data = await database!.query(TABLE_NAME);
+    List<Map<String, dynamic>> data =
+        await database!.query(TABLE_NAME, orderBy: "$COLUMN_CREATED_AT DESC");
     return data.map((e) => RecordItem.fromMap(e)).toList();
   }
 

@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:voice_recorder/src/recorder/record_use_case.dart';
+import 'package:voice_recorder/src/recorder/use_case/if_record_use_case.dart';
+import 'package:voice_recorder/src/recorder/use_case/record_use_case.dart';
+import 'package:voice_recorder/src/recorder/use_case/transcribe_use_case.dart';
+
+enum RecordMode { record, transcribe }
 
 class RecordController extends StatefulWidget {
-  RecordController({Key? key}) : super(key: key);
-
+  RecordController({Key? key, required this.mode}) : super(key: key);
+  RecordMode mode;
   @override
-  _RecordControllerState createState() => _RecordControllerState();
+  RecordControllerState createState() => RecordControllerState();
 }
 
-class _RecordControllerState extends State<RecordController> {
-  final _usecase = Get.put(RecordUseCase());
+class RecordControllerState extends State<RecordController> {
+  final _recordUsecase = Get.put(RecordUseCase());
+  final _transcribeUsecase = Get.put(TranscribeUseCase.getSharedInstance());
   @override
   void initState() {
     super.initState();
@@ -25,15 +30,16 @@ class _RecordControllerState extends State<RecordController> {
                 padding: const EdgeInsets.only(top: 20, bottom: 20),
                 child: Obx(() => ElevatedButton(
                       onPressed: () {
-                        if (_usecase.isRecording.value) {
-                          _usecase.stopRecord();
+                        final usecase = _getUseCase();
+                        if (usecase.isRecording()) {
+                          usecase.onStopRecord();
                         } else {
-                          _usecase.startRecord();
+                          usecase.onStartRecord();
                         }
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: (_usecase.isRecording.value)
+                        backgroundColor: (_getUseCase().isRecording())
                             ? Colors.red
                             : Colors.grey,
                         shape: const CircleBorder(
@@ -43,5 +49,12 @@ class _RecordControllerState extends State<RecordController> {
                       ),
                       child: const Icon(Icons.mic, size: 50),
                     )))));
+  }
+
+  RecordUseCaseInterface _getUseCase() {
+    if (widget.mode == RecordMode.transcribe) {
+      return _transcribeUsecase;
+    }
+    return _recordUsecase;
   }
 }

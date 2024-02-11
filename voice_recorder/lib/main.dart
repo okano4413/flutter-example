@@ -40,10 +40,6 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: RecorderHome(),
-      routes: {
-        '/recorder': (context) => RecorderHome(),
-        '/transcript': (context) => RecorderHome(),
-      },
     );
   }
 }
